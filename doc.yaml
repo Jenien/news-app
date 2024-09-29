@@ -1,0 +1,356 @@
+openapi: 3.0.0
+info:
+  title: News API Documentation
+  description: News API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+
+paths:
+  /auth/register:
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: asepee
+                email:
+                  type: string
+                  example: ase@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        201:
+          description: User created successfully
+        400:
+          description: Bad Request
+          
+  /auth/admin/register:
+    post:
+      summary: Create a new admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: jen
+                email:
+                  type: string
+                  example: ap@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        201:
+          description: Admin created successfully
+        400:
+          description: Bad Request
+
+  /auth/login:
+    post:
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: ap@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        200:
+          description: Login successful
+        401:
+          description: Unauthorized
+
+  /auth/logout:
+    post:
+      summary: Logout user
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Logout successful
+        401:
+          description: Unauthorized
+
+  /auth/alluser:
+    get:
+      summary: Get all users
+      responses:
+        200:
+          description: List of all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    role:
+                      type: string
+        401:
+          description: Unauthorized
+
+  /category/add:
+    post:
+      summary: Create a category
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Deeptalk
+      responses:
+        201:
+          description: Category created
+        400:
+          description: Bad request
+
+  /category/All:
+    get:
+      summary: Get all categories
+      responses:
+        200:
+          description: List of all categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+        400:
+          description: Bad request
+
+  /category/{id}:
+    delete:
+      summary: Delete a category
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Category deleted
+        404:
+          description: Category not found
+
+    put:
+      summary: Update a category
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Teknolokgi
+      responses:
+        200:
+          description: Category updated
+        404:
+          description: Category not found
+
+  /news/add:
+    post:
+      summary: Create news
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: TASK 2
+                content:
+                  type: string
+                  example: okk
+                categoryId:
+                  type: integer
+                  example: 5
+      responses:
+        201:
+          description: News created
+        400:
+          description: Bad request
+
+  /news/All:
+    get:
+      summary: Get all news
+      responses:
+        200:
+          description: List of all news
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    content:
+                      type: string
+                    categoryId:
+                      type: integer
+                    authorId:
+                      type: integer
+
+  /news/search:
+    get:
+      summary: Search news by query
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Search news by category ID
+        - name: title
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search news by title
+        - name: id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Search news by news ID
+      responses:
+        200:
+          description: List of search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: "The latest technology news"
+                    content:
+                      type: string
+                      example: "Technology trends for the upcoming year."
+                    categoryId:
+                      type: integer
+                      example: 5
+        400:
+          description: Bad request
+        404:
+          description: News not found
+
+  /news/{id}:
+    delete:
+      summary: Delete news by admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: News deleted
+        404:
+          description: News not found
+
+    put:
+      summary: Edit news by admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: The landss
+                content:
+                  type: string
+                  example: okk
+                categoryId:
+                  type: integer
+                  example: 1
+      responses:
+        200:
+          description: News updated
+        404:
+          description: News not found
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
