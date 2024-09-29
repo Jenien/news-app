@@ -128,10 +128,10 @@ Berikut adalah langkah-langkah untuk mendeploy aplikasi ke Vercel menggunakan re
 
 API ini telah didokumentasikan menggunakan Swagger lokal dan publik di postmant. Anda dapat mengakses dokumentasi tersebut di:
 
-```
-[https://documenter.getpostman.com/view/35101409/2sAXqzWJWf]
-[https://api.postman.com/collections/35101409-7814d1e6-78fa-4fad-86ce-fd04c3b02589?access_key=PMAT-01J8YWM2C94Q8134SQH67S32M0]
-```
+[https://documenter.getpostman.com/view/35101409/2sAXqzWJWf](https://documenter.getpostman.com/view/35101409/2sAXqzWJWf)
+
+[https://api.postman.com/collections/35101409-7814d1e6-78fa-4fad-86ce-fd04c3b02589?access_key=PMAT-01J8YWM2C94Q8134SQH67S32M0](https://api.postman.com/collections/35101409-7814d1e6-78fa-4fad-86ce-fd04c3b02589?access_key=PMAT-01J8YWM2C94Q8134SQH67S32M0)
+
 
 ## 8. Contoh Penggunaan Request (`request.http`) 
 ### Jika gunakan postman Base Url nya : `https://news-app-eight-vert.vercel.app/`
