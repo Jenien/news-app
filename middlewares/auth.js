@@ -6,7 +6,7 @@ const authenticate = async (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) {
-        return res.sendStatus(403).JSON({ success: false, message: 'Token is required. Please login first' }); 
+        return res.status(401).json({ success: false, message: 'Token is required. Please login first' }); 
     }
 
     try {
@@ -17,14 +17,14 @@ const authenticate = async (req, res, next) => {
         });
 
         if (!existingUser || existingUser.token !== token) {
-            return res.sendStatus(403).JSON({ success: false, message: 'Invalid token' }); 
+            return res.status(401).json({ success: false, message: 'Invalid token' });
         }
 
         req.user = user;
         next();
     } catch (error) {
         console.error('Error authenticating token:', error);
-        return res.sendStatus(500).JSON({ success: false, message: 'Internal server error' }); 
+        return res.status(500).json({ success: false, message: 'Something went wrong' }); 
     }
 };
 

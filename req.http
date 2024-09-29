@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "asepee",
-  "email": "aserp@example.com",
+  "email": "ase@example.com",
   "password": "password123"
 }
 
@@ -29,6 +29,12 @@ Content-Type: application/json
   "password": "password123"
 }
 
+### Logout
+POST http://localhost:8080/api/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDUzMjQsImV4cCI6MTcyNzY5MTcyNH0.U0THLSQIiCfMVoj3s9wveCB7ZYyHundP0luTNTbMCvc
+
+
 ### Get
 GET http://localhost:8080/api/auth/alluser
 
@@ -36,14 +42,65 @@ GET http://localhost:8080/api/auth/alluser
 ### Create categori
 POST http://localhost:8080/api/category/add
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc1OTUwMDIsImV4cCI6MTcyNzY4MTQwMn0.p-HteppbLCjbT-6ERZZzsPi1WFahI0-vm6pJnV_b5sc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDUzMjQsImV4cCI6MTcyNzY5MTcyNH0.U0THLSQIiCfMVoj3s9wveCB7ZYyHundP0luTNTbMCvc
 
 {
 
-  "name": "Teknologi kini"
+  "name": "Deeptalk"
 }
 
-### Logout
-POST http://localhost:8080/api/auth/logout
+### Get All category 
+GET http://localhost:8080/api/category/All
+
+### Delete categori
+DELETE  http://localhost:8080/api/category/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc1OTUwMDIsImV4cCI6MTcyNzY4MTQwMn0.p-HteppbLCjbT-6ERZZzsPi1WFahI0-vm6pJnV_b5sc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoiYXNlcEBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYXNlcGUiLCJpYXQiOjE3MjczNTAxODgsImV4cCI6MTcyNzQzNjU4OH0.dPRviw_Ry7MUhisdIG14FrtGWrd7flSgSgT2E7M2wPE
+
+### Update categori
+PUT http://localhost:8080/api/category/edit/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDUzMjQsImV4cCI6MTcyNzY5MTcyNH0.U0THLSQIiCfMVoj3s9wveCB7ZYyHundP0luTNTbMCvc
+
+{
+
+  "name": "Deeptalk"
+}
+
+##### NEWS
+
+### Create News
+POST http://localhost:8080/api/news/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDU1NTcsImV4cCI6MTcyNzY5MTk1N30.ba1mgSUzehIz8JU9-WgGsFpYr7MTvmGW32Xhb_CZfcI
+
+{
+  "title": "TASK 2",
+  "content": "okk",
+  "categoryId":5
+}
+
+### Get All news / list all news
+GET http://localhost:8080/api/news/All
+
+
+### Search news by Title=/id=/categoryId= by query
+GET http://localhost:8080/api/news/search?categoryId=5
+Content-Type: application/json
+
+
+### Delete news by admin
+DELETE  http://localhost:8080/api/news/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDM5MTEsImV4cCI6MTcyNzY5MDMxMX0.jtS18kr96bFEGbDR9xeCZZi5BlRdY7SnCV4KrziCj84
+
+### edit news by admin
+PUT http://localhost:8080/api/news/edit/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc2MDU1NTcsImV4cCI6MTcyNzY5MTk1N30.ba1mgSUzehIz8JU9-WgGsFpYr7MTvmGW32Xhb_CZfcI
+
+{
+  "title": "TASK 7",
+  "content": "okk",
+  "categoryId":4
+}
