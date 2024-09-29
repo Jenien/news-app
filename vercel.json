@@ -6,7 +6,7 @@
         "use": "@vercel/node"
       },
       {
-        "src": "NEWSAPP.html",
+        "src": "index.html",
         "use": "@vercel/static"
       }
     ],
@@ -22,8 +22,8 @@
         "dest": "app.js"
       },
       {
-        "src": "/docs/api",
-        "dest": "NEWSAPP.html"
+        "src": "/",
+        "dest": "index.html"
       }
     ]
   }
