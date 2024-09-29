@@ -254,8 +254,6 @@ Pastikan untuk selalu menguji setiap endpoint setelah melakukan perubahan dan me
 
 ## Kontak
 
-Jika Anda memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, silakan hubungi:
-
 - **Email:** [riska.jeen@gmail.com](mailto:riska.jeen@gmail.com)
 - **GitHub Repository:** [https://github.com/Jenien/news-app](https://github.com/Jenien/news-app)
 - **GitHub Clone:** [https://github.com/Jenien/news-app.git](https://github.com/Jenien/news-app.git)
