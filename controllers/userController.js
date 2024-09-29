@@ -12,7 +12,6 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Validasi input login menggunakan schema
     const { value, error } = await loginSchema.validateAsync({ email, password });
     if (error) {
       return res.status(400).json({
@@ -23,7 +22,6 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Periksa user di database
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -36,7 +34,7 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Verifikasi password
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
@@ -49,10 +47,16 @@ const login = async (req, res, next) => {
     const payload = {
       id: user.id,
       email: user.email,
-      name: user.name
+      name: user.name,
+      role: user.role,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { token },
+    });
 
     return res.status(200).json({
       success: true,
@@ -66,6 +70,25 @@ const login = async (req, res, next) => {
     next(error); 
   }
 };
+
+// Logout controller
+const logout = async (req, res) => {
+    const userId = req.user.id; 
+
+    try {
+        
+        await prisma.user.update({
+            where: { id: userId },
+            data: { token: null }, 
+        });
+
+        return res.status(200).json({ message: 'Logout berhasil' });
+    } catch (error) {
+        console.error('Error logging out:', error);
+        return res.status(500).json({ message: 'Something went wrong' });
+    }
+};
+
 
 // Fungsi Register User
 const registerUser = async (req, res, next) => {
@@ -212,6 +235,7 @@ const getAllUsers= async (req, res, next) => {
 module.exports = {
   login,
   registerUser,
+  logout,
   registerAdmin, 
   getAllUsers
 };

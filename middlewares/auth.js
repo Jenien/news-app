@@ -2,37 +2,33 @@ const jwt = require('jsonwebtoken');
 const prisma = require("../libs/prisma");
 require("dotenv").config();
 
-const authenticate = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Bearer <token>
+const authenticate = async (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1];
+
     if (!token) {
-        return res.status(401).json({ success: false, message: 'Token is required' });
+        return res.sendStatus(403).JSON({ success: false, message: 'Token is required. Please login first' }); 
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({ success: false, message: 'Invalid token' });
-        }
-        
-        req.user = decoded; 
-        next();
-    });
-};
-const authorize = (roles) => {
-    return (req, res, next) => {
-      // Periksa apakah user memiliki role admin
-      if (req.user.role === 'admin') {
-        return next(); // Jika user adalah admin, lanjutkan ke endpoint berikutnya
-      }
-  
-      // Jika user bukan admin, cek apakah role ada di daftar roles yang diperbolehkan
-      if (!roles.includes(req.user.role)) {
-        return res.status(403).json({ success: false, message: 'Forbidden: Access denied' });
-      }
-  
-      next();
-    };
-  };
-  
+    try {
+        const user = jwt.verify(token, process.env.JWT_SECRET);
+        const existingUser = await prisma.user.findUnique({
+            where: { id: user.id },
+            select: { token: true },
+        });
 
-module.exports = { authenticate , authorize };
+        if (!existingUser || existingUser.token !== token) {
+            return res.sendStatus(403).JSON({ success: false, message: 'Invalid token' }); 
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error('Error authenticating token:', error);
+        return res.sendStatus(500).JSON({ success: false, message: 'Internal server error' }); 
+    }
+};
+
+
+
+module.exports = { authenticate };
 

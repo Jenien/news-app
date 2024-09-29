@@ -31,3 +31,19 @@ Content-Type: application/json
 
 ### Get
 GET http://localhost:8080/api/auth/alluser
+
+
+### Create categori
+POST http://localhost:8080/api/category/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc1OTUwMDIsImV4cCI6MTcyNzY4MTQwMn0.p-HteppbLCjbT-6ERZZzsPi1WFahI0-vm6pJnV_b5sc
+
+{
+
+  "name": "Teknologi kini"
+}
+
+### Logout
+POST http://localhost:8080/api/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcEBleGFtcGxlLmNvbSIsIm5hbWUiOiJqZW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3Mjc1OTUwMDIsImV4cCI6MTcyNzY4MTQwMn0.p-HteppbLCjbT-6ERZZzsPi1WFahI0-vm6pJnV_b5sc
