@@ -1,0 +1,33 @@
+### Create a new user
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "asepee",
+  "email": "aserp@example.com",
+  "password": "password123"
+}
+
+### Create a new admin
+POST http://localhost:8080/api/auth/admin/register
+Content-Type: application/json
+
+{
+  "name": "jen",
+  "email": "ap@example.com",
+  "password": "password123"
+}
+
+
+### Login a user can use email
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+
+  "email": "asep@example.com",
+  "password": "password123"
+}
+
+### Get
+GET http://localhost:8080/api/auth/alluser
